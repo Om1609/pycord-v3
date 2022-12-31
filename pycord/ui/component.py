@@ -19,11 +19,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
 
-from __future__ import annotations
-
 from copy import copy
 from dataclasses import dataclass, field
 from typing import Any, Literal
+
+from typing_extensions import Self
 
 
 class Component:
@@ -36,7 +36,7 @@ class Component:
     type: int
     disabled: bool
 
-    def copy(self) -> Component:
+    def copy(self) -> Self:
         return copy(self)
 
     def _to_dict(self) -> dict[str, Any]:

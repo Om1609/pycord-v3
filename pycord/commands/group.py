@@ -18,9 +18,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
-from __future__ import annotations
 
 from typing import TYPE_CHECKING, TypeVar
+
+from typing_extensions import Self
 
 from .command import Command
 
@@ -35,7 +36,7 @@ class Group:
     def __init__(self, func: AsyncFunc | None, name: str, state: State) -> None:
         self.commands: list[Command] = []
         # nested groups
-        self.groups: list['Group'] = []
+        self.groups: list[Self] = []
 
         self.name = name
         self._callback = func

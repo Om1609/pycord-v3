@@ -22,6 +22,8 @@
 from datetime import datetime
 from typing import Any
 
+from typing_extensions import Self
+
 from .color import Color
 from .types import (
     Author as DiscordAuthor,
@@ -60,7 +62,7 @@ class Thumbnail:
         self.width: UndefinedType | int = UNDEFINED
 
     @classmethod
-    def _from_data(cls, data: DiscordThumbnail) -> 'Thumbnail':
+    def _from_data(cls, data: DiscordThumbnail) -> Self:
         self = cls(data['url'])
         self.proxy_url = data.get('proxy_url', UndefinedType)
         self.height = data.get('height', UndefinedType)
@@ -79,7 +81,7 @@ class Image:
         self.width: UndefinedType | int = UNDEFINED
 
     @classmethod
-    def _from_data(cls, data: DiscordImage) -> 'Image':
+    def _from_data(cls, data: DiscordImage) -> Self:
         self = cls(data['url'])
         self.proxy_url = data.get('proxy_url', UndefinedType)
         self.height = data.get('height', UndefinedType)
@@ -97,7 +99,7 @@ class Footer:
         self.proxy_icon_url: UndefinedType | str = UNDEFINED
 
     @classmethod
-    def _from_data(cls, data: DiscordFooter) -> 'Footer':
+    def _from_data(cls, data: DiscordFooter) -> Self:
         self = cls(data['text'], data.get('icon_url', UNDEFINED))
         self.proxy_icon_url = data.get('proxy_icon_url', UNDEFINED)
         return self
@@ -119,7 +121,7 @@ class Author:
         self.proxy_icon_url: UndefinedType | str = UNDEFINED
 
     @classmethod
-    def _from_data(cls, data: DiscordAuthor) -> 'Author':
+    def _from_data(cls, data: DiscordAuthor) -> Self:
         self = cls(data['name'], data.get('icon_url', UNDEFINED, data['url']))
         self.proxy_icon_url = data.get('proxy_icon_url', UNDEFINED)
         return self
@@ -137,7 +139,7 @@ class Field:
         self.inline = inline
 
     @classmethod
-    def _from_data(cls, data: DiscordField) -> 'Field':
+    def _from_data(cls, data: DiscordField) -> Self:
         return cls(data['name'], data['value'], data.get('field', UNDEFINED))
 
     def _to_data(self) -> dict[str, Any]:

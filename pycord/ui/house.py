@@ -19,11 +19,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
 
-from __future__ import annotations
-
 from copy import copy
 from typing import Literal
 from uuid import uuid4
+
+from typing_extensions import Self
 
 from ..enums import ButtonStyle, SelectMenuType
 from ..errors import ComponentException
@@ -44,7 +44,7 @@ class House:
     def __init__(self) -> None:
         self.components: dict[Component, Component] = {}
 
-    def disabled(self) -> House:
+    def disabled(self) -> Self:
         """
         Returns a copy of this House in which all components are disabled
         """

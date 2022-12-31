@@ -19,10 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
 
-from __future__ import annotations
-
 import re
 from typing import TYPE_CHECKING, Any
+
+from typing_extensions import Self
 
 from .enums import StickerFormatType, StickerType
 from .role import Role
@@ -75,7 +75,7 @@ class Emoji:
         return {'name': self.name, 'id': self.id, 'animated': self.animated}
 
     @classmethod
-    def _from_str(cls, string: str, state: State) -> 'Emoji':
+    def _from_str(cls, string: str, state: State) -> Self:
         match = cls._EMOJI_NAME_REGEX.match(string)
 
         if match:

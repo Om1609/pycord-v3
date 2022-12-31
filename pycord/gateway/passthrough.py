@@ -22,6 +22,8 @@
 import time
 from asyncio import AbstractEventLoop, Future, get_running_loop
 
+from typing_extensions import Self
+
 
 class PassThrough:
     def __init__(self, concurrency: int, per: float | int) -> None:
@@ -33,7 +35,7 @@ class PassThrough:
         self.loop: AbstractEventLoop = get_running_loop()
         self.pending_reset: bool = False
 
-    async def __aenter__(self) -> 'PassThrough':
+    async def __aenter__(self) -> Self:
         while self.current == 0:
             future = self.loop.create_future()
             self._reserved.append(future)
