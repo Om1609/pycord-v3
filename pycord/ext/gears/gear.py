@@ -18,13 +18,14 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
+
 from __future__ import annotations
 
+from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any, Type, TypeVar, Generic
 
 from ...commands import Command, Group
 from ...types import AsyncFunc
-from types import SimpleNamespace
 
 if TYPE_CHECKING:
     from ...bot import Bot
@@ -32,8 +33,10 @@ if TYPE_CHECKING:
 
 T = TypeVar('T')
 
+
 class BaseContext(SimpleNamespace):
     ...
+
 
 ContextT = TypeVar("ContextT", bound=BaseContext)
 
@@ -53,6 +56,7 @@ class Gear(Generic[ContextT]):
     bot: Union[:class:`pycord.Bot`, None]
         The bot this Gear is attached to.
     """
+
     ctx: ContextT
 
     def __init__(self, name: str, ctx: ContextT) -> None:
