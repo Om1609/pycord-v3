@@ -18,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
-
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -72,7 +71,9 @@ class Webhook:
             ),
         )
 
-    def _from_data(self, data: DiscordWebhook, state: State) -> None:
+
+class GuildWebhook:
+    def __init__(self, data: DiscordWebhook, state: State) -> None:
         self.id: Snowflake = Snowflake(data['id'])
         self.type: WebhookType = WebhookType(data['type'])
         self.guild_id: Snowflake | None | UndefinedType = (

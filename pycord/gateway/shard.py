@@ -18,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
-
 from __future__ import annotations
 
 import asyncio
@@ -258,7 +257,7 @@ class Shard:
                 raise ShardingRequired('Discord is requiring you shard your bot')
             elif code == 4014:
                 raise DisallowedIntents(
-                    "You aren't allowed to carry a priviledged intent wanted"
+                    "You aren't allowed to carry a privileged intent wanted"
                 )
 
             if code > 4000 or code == 4000:

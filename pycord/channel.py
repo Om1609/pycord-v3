@@ -18,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
-
 from __future__ import annotations
 
 from datetime import datetime
@@ -64,7 +63,7 @@ class ThreadMetadata:
         self.invitable: bool | UndefinedType = metadata.get('invitable', UNDEFINED)
         self.create_timestamp: datetime | UndefinedType = (
             datetime.fromisoformat(metadata.get('create_timestamp'))
-            if metadata.get('create_timestamp') != None
+            if metadata.get('create_timestamp') is not None
             else UNDEFINED
         )
 
