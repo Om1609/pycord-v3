@@ -21,7 +21,7 @@
 
 from collections.abc import Iterator, Sequence
 from itertools import accumulate
-from typing import Any, Literal, TypeVar
+from typing import Any, Literal, Type, TypeVar
 
 from aiohttp import ClientResponse
 
@@ -35,6 +35,8 @@ except ImportError:
 
 DISCORD_EPOCH: int = 1420070400000
 S = TypeVar('S', bound=Sequence)
+T = TypeVar('T')
+D = TypeVar('D')
 
 
 async def _text_or_json(cr: ClientResponse, self) -> str | dict[str, Any]:
@@ -95,3 +97,10 @@ def chunk(items: S, n: int) -> Iterator[S]:
 
 def remove_undefined(**kwargs) -> dict[str, Any]:
     return {k: v for k, v in kwargs.items() if v is not UNDEFINED}
+
+
+def _match_class(data: dict[str, Any], key: str, obj: Type[T], default: D, *args, **kwargs) -> T | D:
+    if key in data:
+        return obj(data[key], *args, **kwargs)
+    else:
+        return default
