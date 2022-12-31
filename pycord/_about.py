@@ -10,15 +10,15 @@ __git_sha1__: str = 'HEAD'
 
 
 class VersionInfo(typing.NamedTuple):
-    major: str
-    minor: str
-    micro: str
-    releaselevel: typing.Literal['alpha', 'beta', 'candidate', 'final']
+    major: int
+    minor: int
+    micro: int
+    release_level: typing.Literal['alpha', 'beta', 'candidate', 'final']
     serial: int
 
 
 version_info: VersionInfo = VersionInfo(
-    major=3, minor=0, micro=0, releaselevel='alpha', serial=0
+    major=3, minor=0, micro=0, release_level='alpha', serial=0
 )
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
