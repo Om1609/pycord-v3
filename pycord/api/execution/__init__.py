@@ -7,4 +7,4 @@ Rate Limit execution for the Discord API
 :license: MIT
 """
 
-from .executer import *
+from .executor import *

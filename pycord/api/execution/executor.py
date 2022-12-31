@@ -24,7 +24,7 @@ import asyncio
 from ..route import BaseRoute
 
 
-class Executer:
+class Executor:
     def __init__(self, route: BaseRoute) -> None:
         self.route = route
         self.is_global: bool | None = None

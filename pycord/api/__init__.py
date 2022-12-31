@@ -17,7 +17,7 @@ from .. import utils
 from .._about import __version__
 from ..errors import BotException, Forbidden, HTTPException, InternalError, NotFound
 from ..utils import dumps
-from .execution import Executer
+from .execution import Executor
 from .json_decoder import JSONDecoder
 from .route import BaseRoute, Route
 from .routers import *
@@ -50,7 +50,7 @@ class HTTPClient(ApplicationCommands, Messages):
         self.verbose = verbose
 
         self._session: None | ClientSession = None
-        self._executers: list[Executer] = []
+        self._executors: list[Executor] = []
 
     async def create_session(self) -> None:
         self._session = ClientSession()
@@ -85,10 +85,10 @@ class HTTPClient(ApplicationCommands, Messages):
 
         _log.debug(f'Requesting to {endpoint} with {data}, {headers}')
 
-        for executer in self._executers:
-            if executer.is_global or executer.route == route:
-                _log.debug(f'Pausing request to {endpoint}: Found rate limit executer')
-                await executer.wait()
+        for executor in self._executors:
+            if executor.is_global or executor.route == route:
+                _log.debug(f'Pausing request to {endpoint}: Found rate limit executor')
+                await executor.wait()
 
         for _ in range(5):
             r = await self._session.request(
@@ -106,15 +106,15 @@ class HTTPClient(ApplicationCommands, Messages):
 
             if r.status == 429:
                 _log.debug(f'Request to {endpoint} failed: Request returned rate limit')
-                executer = Executer(route=route)
+                executor = Executor(route=route)
 
-                self._executers.append(executer)
-                await executer.executed(
+                self._executors.append(executor)
+                await executor.executed(
                     reset_after=data['retry_after'],
                     is_global=r.headers.get('X-RateLimit-Scope') == 'global',
                     limit=int(r.headers.get('X-RateLimit-Limit', 10)),
                 )
-                self._executers.remove(executer)
+                self._executors.remove(executor)
                 continue
 
             elif r.status == 403:
